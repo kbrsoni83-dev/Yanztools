@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YANZ FEEDBACK</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+:root{
+    --purple:#7c3aed;
+    --purple2:#a855f7;
+    --purple3:#c084fc;
+    --muted:#c8bfd2;
+    --border:rgba(220,180,255,.18);
+}
+
+body{
+    min-height:100vh;
+    background:#08050d;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+#bgVideo{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-50;
+    filter:brightness(.68) contrast(1.02) saturate(.92);
+}
+
+.bg-overlay{
+    position:fixed;
+    inset:0;
+    z-index:-40;
+    pointer-events:none;
+    background:linear-gradient(
+        180deg,
+        rgba(5,2,10,.40),
+        rgba(5,2,10,.78)
+    );
+}
+
+.bg-purple{
+    position:fixed;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.16;
+    z-index:-30;
+    pointer-events:none;
+}
+
+.bg-purple.one{
+    top:-180px;
+    left:-120px;
+    background:#7c3aed;
+    animation:floatOne 14s ease-in-out infinite;
+}
+
+.bg-purple.two{
+    right:-180px;
+    bottom:-180px;
+    background:#c026d3;
+    animation:floatTwo 16s ease-in-out infinite;
+}
+
+@keyframes floatOne{
+    0%,100%{transform:translate(0,0)}
+    50%{transform:translate(60px,40px)}
+}
+
+@keyframes floatTwo{
+    0%,100%{transform:translate(0,0)}
+    50%{transform:translate(-50px,-30px)}
+}
+
+/* NAVBAR */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    width:100%;
+    background:rgba(8,4,14,.30);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(17px) saturate(150%);
+    -webkit-backdrop-filter:blur(17px) saturate(150%);
+}
+
+.nav-inner{
+    max-width:1100px;
+    margin:auto;
+    min-height:72px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:white;
+    text-decoration:none;
+}
+
+.brand-logo{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    font-weight:800;
+    background:linear-gradient(
+        135deg,
+        rgba(124,58,237,.75),
+        rgba(168,85,247,.35)
+    );
+    border:1px solid rgba(220,180,255,.24);
+    box-shadow:0 0 25px rgba(124,58,237,.18);
+}
+
+.brand-text{
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:.4px;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.nav-link{
+    padding:10px 12px;
+    border-radius:10px;
+    color:#d8d0df;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.nav-link:hover{
+    color:white;
+    background:rgba(168,85,247,.12);
+}
+
+.nav-link.active{
+    color:white;
+    background:rgba(124,58,237,.20);
+    border:1px solid rgba(192,132,252,.15);
+}
+
+.online{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:8px 11px;
+    border-radius:20px;
+    background:rgba(20,15,27,.25);
+    border:1px solid rgba(220,180,255,.12);
+    color:#ddd4e5;
+    font-size:10px;
+    font-weight:700;
+}
+
+.online-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 8px #22c55e;
+    animation:onlinePulse 2s infinite;
+}
+
+@keyframes onlinePulse{
+    0%,100%{opacity:1}
+    50%{opacity:.45}
+}
+
+.menu-btn{
+    display:none;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:rgba(25,12,36,.35);
+    color:white;
+    font-size:19px;
+    cursor:pointer;
+}
+
+/* MOBILE MENU */
+
+.mobile-menu{
+    position:fixed;
+    top:82px;
+    right:5%;
+    width:220px;
+    padding:10px;
+    border-radius:17px;
+    background:rgba(13,7,21,.72);
+    border:1px solid var(--border);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    opacity:0;
+    transform:translateY(-10px);
+    pointer-events:none;
+    transition:.25s;
+    z-index:999;
+}
+
+.mobile-menu.show{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+}
+
+.mobile-menu a{
+    display:block;
+    padding:13px 14px;
+    border-radius:11px;
+    color:#ddd5e4;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:600;
+}
+
+.mobile-menu a:hover{
+    background:rgba(124,58,237,.15);
+    color:white;
+}
+
+/* MAIN */
+
+main{
+    width:100%;
+    max-width:1050px;
+    margin:auto;
+    padding:45px 5% 70px;
+}
+
+/* HEADER */
+
+.page-header{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 13px;
+    border-radius:20px;
+    background:rgba(124,58,237,.13);
+    border:1px solid rgba(192,132,252,.18);
+    color:#ddd0e9;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.6px;
+}
+
+.badge span{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 8px #22c55e;
+}
+
+.page-header h1{
+    margin-top:15px;
+    font-size:clamp(32px,7vw,50px);
+    font-weight:800;
+    letter-spacing:-1.5px;
+}
+
+.page-header h1 span{
+    color:var(--purple3);
+    text-shadow:0 0 30px rgba(168,85,247,.35);
+}
+
+.page-header p{
+    max-width:650px;
+    margin:12px auto 0;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+}
+
+/* MUSIC */
+
+.glass{
+    background:linear-gradient(
+        135deg,
+        rgba(35,18,52,.31),
+        rgba(15,8,25,.28)
+    );
+    border:1px solid var(--border);
+    border-radius:22px;
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    box-shadow:0 20px 70px rgba(0,0,0,.20);
+}
+
+.music-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:15px 17px;
+    margin-bottom:20px;
+}
+
+.music-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.music-icon{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:linear-gradient(
+        135deg,
+        rgba(124,58,237,.35),
+        rgba(192,132,252,.15)
+    );
+    border:1px solid rgba(192,132,252,.18);
+    font-size:18px;
+}
+
+.music-info strong{
+    display:block;
+    font-size:12px;
+}
+
+.music-info span{
+    display:block;
+    margin-top:3px;
+    color:#a99eb0;
+    font-size:10px;
+}
+
+.music-btn{
+    border:1px solid rgba(192,132,252,.2);
+    background:rgba(124,58,237,.15);
+    color:white;
+    border-radius:12px;
+    padding:10px 15px;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.music-btn:hover{
+    background:rgba(124,58,237,.30);
+}
+
+/* FEEDBACK FORM */
+
+.feedback-card{
+    padding:24px;
+}
+
+.section-title{
+    font-size:17px;
+    font-weight:800;
+}
+
+.section-subtitle{
+    margin-top:5px;
+    color:#89808f;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.form-group{
+    margin-top:18px;
+}
+
+.form-label{
+    display:block;
+    margin-bottom:8px;
+    color:#d8d0df;
+    font-size:11px;
+    font-weight:700;
+}
+
+.input,
+.textarea{
+    width:100%;
+    outline:none;
+    border:1px solid rgba(220,180,255,.12);
+    background:rgba(5,3,9,.35);
+    color:white;
+    border-radius:13px;
+    padding:13px 14px;
+    font-size:12px;
+    transition:.25s;
+}
+
+.input::placeholder,
+.textarea::placeholder{
+    color:#655d6c;
+}
+
+.input:focus,
+.textarea:focus{
+    border-color:rgba(168,85,247,.45);
+    box-shadow:0 0 0 3px rgba(124,58,237,.08);
+}
+
+.textarea{
+    min-height:125px;
+    resize:vertical;
+    line-height:1.6;
+}
+
+/* STARS */
+
+.rating-wrap{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.star{
+    width:43px;
+    height:43px;
+    border-radius:12px;
+    border:1px solid rgba(220,180,255,.10);
+    background:rgba(255,255,255,.025);
+    color:#514a56;
+    font-size:21px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.star:hover{
+    transform:translateY(-2px);
+    color:#fbbf24;
+    background:rgba(251,191,36,.06);
+}
+
+.star.selected{
+    color:#fbbf24;
+    border-color:rgba(251,191,36,.20);
+    background:rgba(251,191,36,.08);
+    text-shadow:0 0 15px rgba(251,191,36,.35);
+}
+
+.rating-text{
+    margin-left:8px;
+    color:#8e8594;
+    font-size:10px;
+}
+
+/* SEND BUTTON */
+
+.send-btn{
+    width:100%;
+    height:53px;
+    margin-top:20px;
+    border:0;
+    border-radius:14px;
+    color:white;
+    background:linear-gradient(
+        135deg,
+        #7c3aed,
+        #a855f7
+    );
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 10px 35px rgba(124,58,237,.22);
+    transition:.25s;
+}
+
+.send-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 15px 45px rgba(124,58,237,.32);
+}
+
+.send-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* FEEDBACK LIST */
+
+.list-card{
+    margin-top:20px;
+    padding:24px;
+}
+
+.list-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.feedback-count{
+    padding:7px 10px;
+    border-radius:10px;
+    background:rgba(124,58,237,.10);
+    border:1px solid rgba(192,132,252,.13);
+    color:#c7a7e8;
+    font-size:9px;
+    font-weight:800;
+}
+
+.feedback-item{
+    padding:17px;
+    margin-top:10px;
+    border-radius:16px;
+    background:rgba(255,255,255,.022);
+    border:1px solid rgba(220,180,255,.08);
+    animation:feedbackIn .35s ease;
+}
+
+@keyframes feedbackIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.feedback-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.user-name{
+    font-size:12px;
+    font-weight:800;
+}
+
+.feedback-stars{
+    color:#fbbf24;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.feedback-message{
+    margin-top:10px;
+    color:#b0a7b6;
+    font-size:11px;
+    line-height:1.7;
+    word-break:break-word;
+}
+
+.feedback-date{
+    margin-top:10px;
+    color:#655e6b;
+    font-size:9px;
+}
+
+.empty{
+    padding:35px 15px;
+    text-align:center;
+    color:#756d7b;
+    font-size:11px;
+}
+
+.loading{
+    padding:25px;
+    text-align:center;
+    color:#8c8392;
+    font-size:10px;
+}
+
+/* FOOTER */
+
+footer{
+    max-width:1050px;
+    margin:auto;
+    padding:0 5% 35px;
+    text-align:center;
+    color:#817889;
+    font-size:10px;
+}
+
+footer span{
+    color:#b88bea;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,30px);
+    min-width:220px;
+    max-width:90%;
+    padding:12px 16px;
+    border-radius:13px;
+    background:rgba(13,7,20,.85);
+    border:1px solid rgba(192,132,252,.20);
+    backdrop-filter:blur(18px);
+    color:white;
+    text-align:center;
+    font-size:11px;
+    font-weight:600;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:5000;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .online{
+        display:none;
+    }
+
+    main{
+        padding-top:30px;
+    }
+
+    .feedback-card,
+    .list-card{
+        padding:16px;
+    }
+
+    .star{
+        width:40px;
+        height:40px;
+    }
+
+}
+
+@media(max-width:420px){
+
+    .brand-text{
+        font-size:12px;
+    }
+
+    .brand-logo{
+        width:39px;
+        height:39px;
+    }
+
+    .page-header h1{
+        font-size:34px;
+    }
+
+    .rating-wrap{
+        flex-wrap:wrap;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- BACKGROUND -->
+
+<video
+    id="bgVideo"
+    autoplay
+    muted
+    loop
+    playsinline>
+
+    <source src="YANZ.mp4" type="video/mp4">
+
+</video>
+
+<div class="bg-overlay"></div>
+
+<div class="bg-purple one"></div>
+<div class="bg-purple two"></div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+        <a href="utama.html" class="brand">
+
+            <div class="brand-logo">
+                YZ
+            </div>
+
+            <div class="brand-text">
+                YANZ PROJECT
+            </div>
+
+        </a>
+
+
+        <div class="nav-right">
+
+            <div class="nav-links">
+
+                <a href="utama.html" class="nav-link">
+                    HOME
+                </a>
+
+                <a href="key.html" class="nav-link">
+                    GET KEY
+                </a>
+
+                <a href="admin-key.html" class="nav-link">
+                    ADMIN KEY
+                </a>
+
+                <a href="admin-control.html" class="nav-link">
+                    ADMIN CONTROL
+                </a>
+
+                <a href="feedback.html" class="nav-link active">
+                    FEEDBACK
+                </a>
+
+            </div>
+
+
+            <div class="online">
+
+                <span class="online-dot"></span>
+
+                ONLINE
+
+            </div>
+
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                onclick="toggleMobileMenu()">
+
+                ☰
+
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- MOBILE MENU -->
+
+<div class="mobile-menu" id="mobileMenu">
+
+    <a href="utama.html">
+        🏠 HOME
+    </a>
+
+    <a href="key.html">
+        🔑 GET KEY
+    </a>
+
+    <a href="admin-key.html">
+        ⚙️ ADMIN KEY
+    </a>
+
+    <a href="admin-control.html">
+        🛠️ ADMIN CONTROL
+    </a>
+
+    <a href="feedback.html">
+        💬 FEEDBACK
+    </a>
+
+</div>
+
+
+<!-- MAIN -->
+
+<main>
+
+
+    <!-- HEADER -->
+
+    <section class="page-header">
+
+        <div class="badge">
+
+            <span></span>
+
+            YANZ COMMUNITY
+
+        </div>
+
+
+        <h1>
+
+            Give <span>Feedback.</span>
+
+        </h1>
+
+
+        <p>
+
+            Bagikan pengalaman kamu menggunakan
+            YANZ. Rating dan pesan kamu membantu
+            kami membuat project ini semakin baik.
+
+        </p>
+
+    </section>
+
+
+    <!-- MUSIC -->
+
+    <div class="glass music-card">
+
+        <div class="music-left">
+
+            <div class="music-icon">
+                🎵
+            </div>
+
+            <div class="music-info">
+
+                <strong>
+                    YANZ PROJECT
+                </strong>
+
+                <span id="musicStatus">
+                    YANZ.mp3
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="music-btn"
+            id="musicBtn"
+            onclick="toggleMusic()">
+
+            ▶ PLAY
+
+        </button>
+
+    </div>
+
+
+    <audio id="music" loop>
+
+        <source
+            src="YANZ.mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+
+    <!-- FORM -->
+
+    <section class="glass feedback-card">
+
+
+        <div class="section-title">
+
+            💬 Tulis Feedback
+
+        </div>
+
+
+        <div class="section-subtitle">
+
+            Isi nama, pilih rating, lalu tulis pesan kamu.
+
+        </div>
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                NAMA
+            </label>
+
+            <input
+                class="input"
+                id="nameInput"
+                type="text"
+                maxlength="30"
+                placeholder="Masukkan nama kamu...">
+
+        </div>
+
+
+        <!-- RATING -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                RATING
+            </label>
+
+
+            <div class="rating-wrap" id="ratingWrap">
+
+                <button class="star" data-rating="1">
+                    ★
+                </button>
+
+                <button class="star" data-rating="2">
+                    ★
+                </button>
+
+                <button class="star" data-rating="3">
+                    ★
+                </button>
+
+                <button class="star" data-rating="4">
+                    ★
+                </button>
+
+                <button class="star" data-rating="5">
+                    ★
+                </button>
+
+                <span
+                    class="rating-text"
+                    id="ratingText">
+
+                    Belum dipilih
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+                PESAN
+            </label>
+
+            <textarea
+                class="textarea"
+                id="messageInput"
+                maxlength="500"
+                placeholder="Tulis pengalaman atau saran kamu..."></textarea>
+
+        </div>
+
+
+        <!-- SEND -->
+
+        <button
+            class="send-btn"
+            id="sendBtn">
+
+            🚀 KIRIM FEEDBACK
+
+        </button>
+
+
+    </section>
+
+
+    <!-- LIST -->
+
+    <section class="glass list-card">
+
+
+        <div class="list-header">
+
+            <div>
+
+                <div class="section-title">
+                    ⭐ Feedback Terbaru
+                </div>
+
+                <div class="section-subtitle">
+                    Pendapat dari pengguna YANZ.
+                </div>
+
+            </div>
+
+
+            <div
+                class="feedback-count"
+                id="feedbackCount">
+
+                0 FEEDBACK
+
+            </div>
+
+        </div>
+
+
+        <div id="feedbackList">
+
+            <div class="loading">
+
+                Memuat feedback...
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    YANZ PROJECT © 2026 —
+    <span>COMMUNITY FEEDBACK</span>
+
+</footer>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+
+import {
+
+    initializeApp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+
+import {
+
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+    limit,
+    getDocs
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCFxeYheaAtB2KNLN-J4CoNchaajnbfo",
+
+    authDomain:
+        "yanx-mod.firebaseapp.com",
+
+    projectId:
+        "yanx-mod",
+
+    storageBucket:
+        "yanx-mod.firebasestorage.app",
+
+    messagingSenderId:
+        "987152018451",
+
+    appId:
+        "1:987152018451:web:eed97744e8602b7c4b23e6"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const db =
+    getFirestore(app);
+
+
+const feedbackCollection =
+    collection(
+        db,
+        "feedback"
+    );
+
+
+/* STATE */
+
+let selectedRating = 0;
+
+
+/* ELEMENTS */
+
+const stars =
+    document.querySelectorAll(
+        ".star"
+    );
+
+const ratingText =
+    document.getElementById(
+        "ratingText"
+    );
+
+const nameInput =
+    document.getElementById(
+        "nameInput"
+    );
+
+const messageInput =
+    document.getElementById(
+        "messageInput"
+    );
+
+const sendBtn =
+    document.getElementById(
+        "sendBtn"
+    );
+
+
+/* RATING */
+
+stars.forEach(
+    star => {
+
+        star.addEventListener(
+            "click",
+            function(){
+
+                selectedRating =
+                    Number(
+                        this.dataset.rating
+                    );
+
+
+                stars.forEach(
+                    item => {
+
+                        const value =
+                            Number(
+                                item.dataset.rating
+                            );
+
+
+                        item.classList.toggle(
+                            "selected",
+                            value <= selectedRating
+                        );
+
+                    }
+                );
+
+
+                const labels = {
+
+                    1:"Sangat buruk",
+                    2:"Kurang",
+                    3:"Cukup",
+                    4:"Bagus",
+                    5:"Sangat bagus"
+
+                };
+
+
+                ratingText.innerText =
+                    labels[
+                        selectedRating
+                    ];
+
+            }
+        );
+
+    }
+);
+
+
+/* SEND FEEDBACK */
+
+sendBtn.addEventListener(
+    "click",
+    async function(){
+
+        const name =
+            nameInput.value.trim();
+
+        const message =
+            messageInput.value.trim();
+
+
+        if(!name){
+
+            showToast(
+                "⚠️ Nama belum diisi"
+            );
+
+            nameInput.focus();
+
+            return;
+
+        }
+
+
+        if(selectedRating === 0){
+
+            showToast(
+                "⚠️ Pilih rating terlebih dahulu"
+            );
+
+            return;
+
+        }
+
+
+        if(!message){
+
+            showToast(
+                "⚠️ Pesan belum diisi"
+            );
+
+            messageInput.focus();
+
+            return;
+
+        }
+
+
+        sendBtn.disabled =
+            true;
+
+        sendBtn.innerText =
+            "MENGIRIM...";
+
+
+        try{
+
+
+            await addDoc(
+                feedbackCollection,
+                {
+
+                    name:
+                        name,
+
+                    rating:
+                        selectedRating,
+
+                    message:
+                        message,
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            showToast(
+                "✓ Feedback berhasil dikirim"
+            );
+
+
+            nameInput.value =
+                "";
+
+            messageInput.value =
+                "";
+
+
+            selectedRating =
+                0;
+
+
+            stars.forEach(
+                star => {
+
+                    star.classList.remove(
+                        "selected"
+                    );
+
+                }
+            );
+
+
+            ratingText.innerText =
+                "Belum dipilih";
+
+
+            await loadFeedback();
+
+
+        }
+        catch(error){
+
+            console.error(
+                error
+            );
+
+
+            showToast(
+                "❌ Gagal mengirim feedback"
+            );
+
+        }
+
+
+        sendBtn.disabled =
+            false;
+
+        sendBtn.innerText =
+            "🚀 KIRIM FEEDBACK";
+
+    }
+);
+
+
+/* LOAD FEEDBACK */
+
+async function loadFeedback(){
+
+    const list =
+        document.getElementById(
+            "feedbackList"
+        );
+
+
+    try{
+
+
+        const q =
+            query(
+                feedbackCollection,
+                orderBy(
+                    "createdAt",
+                    "desc"
+                ),
+                limit(30)
+            );
+
+
+        const snapshot =
+            await getDocs(q);
+
+
+        document
+        .getElementById(
+            "feedbackCount"
+        )
+        .innerText =
+            snapshot.size +
+            " FEEDBACK";
+
+
+        if(
+            snapshot.empty
+        ){
+
+            list.innerHTML = `
+
+                <div class="empty">
+
+                    💬 Belum ada feedback.
+                    Jadilah orang pertama yang memberikan feedback!
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        list.innerHTML =
+            "";
+
+
+        snapshot.forEach(
+            doc => {
+
+                const data =
+                    doc.data();
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "feedback-item";
+
+
+                const safeName =
+                    escapeHTML(
+                        data.name ||
+                        "Anonymous"
+                    );
+
+
+                const safeMessage =
+                    escapeHTML(
+                        data.message ||
+                        ""
+                    );
+
+
+                const rating =
+                    Math.min(
+                        5,
+                        Math.max(
+                            1,
+                            Number(
+                                data.rating
+                            ) || 0
+                        )
+                    );
+
+
+                let starsHTML =
+                    "";
+
+
+                for(
+                    let i=1;
+                    i<=5;
+                    i++
+                ){
+
+                    starsHTML +=
+                        i <= rating
+                        ? "★"
+                        : "☆";
+
+                }
+
+
+                let dateText =
+                    "Baru saja";
+
+
+                if(
+                    data.createdAt
+                ){
+
+                    try{
+
+                        const date =
+                            data.createdAt
+                            .toDate();
+
+
+                        dateText =
+                            date.toLocaleString(
+                                "id-ID",
+                                {
+                                    day:"2-digit",
+                                    month:"short",
+                                    year:"numeric",
+                                    hour:"2-digit",
+                                    minute:"2-digit"
+                                }
+                            );
+
+                    }
+                    catch(e){}
+
+                }
+
+
+                item.innerHTML = `
+
+                    <div class="feedback-top">
+
+                        <div class="user-name">
+                            ${safeName}
+                        </div>
+
+                        <div class="feedback-stars">
+                            ${starsHTML}
+                        </div>
+
+                    </div>
+
+
+                    <div class="feedback-message">
+
+                        ${safeMessage}
+
+                    </div>
+
+
+                    <div class="feedback-date">
+
+                        ${dateText}
+
+                    </div>
+
+                `;
+
+
+                list.appendChild(
+                    item
+                );
+
+            }
+        );
+
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                ⚠️ Feedback belum dapat dimuat.
+
+                <br><br>
+
+                Pastikan Firestore sudah aktif.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(
+    text
+){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* TOAST */
+
+window.showToast =
+function(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+};
+
+
+/* INITIAL LOAD */
+
+loadFeedback();
+
+</script>
+
+
+<!-- MUSIC + MOBILE -->
+
+<script>
+
+
+const music =
+    document.getElementById(
+        "music"
+    );
+
+
+const musicBtn =
+    document.getElementById(
+        "musicBtn"
+    );
+
+
+const musicStatus =
+    document.getElementById(
+        "musicStatus"
+    );
+
+
+window.toggleMusic =
+async function(){
+
+    if(
+        music.paused
+    ){
+
+        try{
+
+            await music.play();
+
+            musicBtn.textContent =
+                "❚❚ PAUSE";
+
+            musicStatus.textContent =
+                "Playing • YANZ.mp3";
+
+        }
+        catch(error){
+
+            showToast(
+                "Tekan PLAY lagi untuk memulai musik"
+            );
+
+        }
+
+    }
+    else{
+
+        music.pause();
+
+        musicBtn.textContent =
+            "▶ PLAY";
+
+        musicStatus.textContent =
+            "YANZ.mp3";
+
+    }
+
+};
+
+
+music.addEventListener(
+    "play",
+    function(){
+
+        musicBtn.textContent =
+            "❚❚ PAUSE";
+
+        musicStatus.textContent =
+            "Playing • YANZ.mp3";
+
+    }
+);
+
+
+music.addEventListener(
+    "pause",
+    function(){
+
+        musicBtn.textContent =
+            "▶ PLAY";
+
+        musicStatus.textContent =
+            "YANZ.mp3";
+
+    }
+);
+
+
+/* VIDEO */
+
+document
+.getElementById(
+    "bgVideo"
+)
+.play()
+.catch(
+    () => {}
+);
+
+
+/* MOBILE MENU */
+
+window.toggleMobileMenu =
+function(){
+
+    document
+    .getElementById(
+        "mobileMenu"
+    )
+    .classList.toggle(
+        "show"
+    );
+
+};
+
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const menu =
+            document.getElementById(
+                "mobileMenu"
+            );
+
+        const button =
+            document.getElementById(
+                "menuBtn"
+            );
+
+
+        if(
+            !menu.contains(
+                event.target
+            )
+            &&
+            !button.contains(
+                event.target
+            )
+        ){
+
+            menu.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>

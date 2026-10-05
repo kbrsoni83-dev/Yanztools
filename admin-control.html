@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YANZ ADMIN CONTROL</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+
+:root{
+    --purple:#7c3aed;
+    --purple2:#a855f7;
+    --purple3:#c084fc;
+
+    --bg:#08050d;
+    --white:#fff;
+    --muted:#c8bfd2;
+
+    --glass:rgba(15,8,25,.30);
+    --glass-light:rgba(35,18,52,.25);
+    --border:rgba(220,180,255,.18);
+
+    --green:#22c55e;
+    --red:#ef4444;
+    --yellow:#f59e0b;
+    --blue:#3b82f6;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:#08050d;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND VIDEO
+========================= */
+
+#bgVideo{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-50;
+
+    filter:
+        brightness(.68)
+        contrast(1.02)
+        saturate(.92);
+}
+
+.bg-overlay{
+    position:fixed;
+    inset:0;
+    z-index:-40;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(124,58,237,.22),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(168,85,247,.18),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(5,2,10,.42),
+            rgba(5,2,10,.78)
+        );
+}
+
+/* =========================
+   ORBS
+========================= */
+
+.orb{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(90px);
+    pointer-events:none;
+    z-index:-30;
+    opacity:.4;
+}
+
+.orb1{
+    width:260px;
+    height:260px;
+    background:#7c3aed;
+    top:5%;
+    left:-80px;
+    animation:float1 9s ease-in-out infinite;
+}
+
+.orb2{
+    width:300px;
+    height:300px;
+    background:#a855f7;
+    right:-100px;
+    bottom:5%;
+    animation:float2 11s ease-in-out infinite;
+}
+
+@keyframes float1{
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(50px,35px);
+    }
+}
+
+@keyframes float2{
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(-45px,-30px);
+    }
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    width:100%;
+
+    background:rgba(8,5,13,.48);
+    backdrop-filter:blur(17px);
+    -webkit-backdrop-filter:blur(17px);
+
+    border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+    max-width:1100px;
+    margin:auto;
+
+    min-height:72px;
+
+    padding:0 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+
+    text-decoration:none;
+    color:white;
+}
+
+.brand-logo{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    font-weight:800;
+    font-size:17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7,
+            #c026d3
+        );
+
+    box-shadow:
+        0 0 25px rgba(168,85,247,.38);
+
+    border:1px solid rgba(255,255,255,.14);
+}
+
+.brand-text{
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:.4px;
+}
+
+.brand-sub{
+    color:#aaa0b5;
+    font-size:9px;
+    font-weight:600;
+    margin-top:2px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.nav-links a{
+    color:#cfc5d7;
+    text-decoration:none;
+
+    font-size:11px;
+    font-weight:700;
+
+    padding:10px 12px;
+
+    border-radius:10px;
+
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:white;
+
+    background:rgba(124,58,237,.14);
+
+    transform:translateY(-1px);
+}
+
+.nav-links a.active{
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.28),
+            rgba(168,85,247,.14)
+        );
+
+    border:1px solid rgba(168,85,247,.20);
+}
+
+.online-status{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    font-size:9px;
+    font-weight:800;
+
+    color:#86efac;
+
+    padding:8px 10px;
+
+    border-radius:10px;
+
+    background:rgba(34,197,94,.07);
+    border:1px solid rgba(34,197,94,.13);
+}
+
+.online-dot{
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 9px #22c55e;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.35;
+    }
+}
+
+.menu-btn{
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.04);
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+    width:100%;
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:
+        50px 20px
+        80px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.page-header .mini{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    padding:7px 12px;
+
+    border-radius:30px;
+
+    background:rgba(124,58,237,.10);
+
+    border:1px solid rgba(168,85,247,.18);
+
+    color:#d8b4fe;
+
+    font-size:9px;
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    margin-bottom:15px;
+}
+
+.page-header .mini span{
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#a855f7;
+
+    box-shadow:0 0 10px #a855f7;
+}
+
+.page-header h1{
+    font-size:clamp(30px,5vw,50px);
+
+    font-weight:800;
+
+    letter-spacing:-1.5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #d8b4fe,
+            #a855f7
+        );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-shadow:
+        0 0 35px rgba(168,85,247,.15);
+}
+
+.page-header p{
+    margin-top:10px;
+
+    color:#b8aebf;
+
+    font-size:12px;
+
+    line-height:1.7;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.dashboard-grid{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.4fr)
+        minmax(300px,.8fr);
+
+    gap:18px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25,13,39,.48),
+            rgba(10,6,16,.30)
+        );
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:22px;
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.card + .card{
+    margin-top:18px;
+}
+
+.card-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.card-title-left{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.icon-box{
+    width:39px;
+    height:39px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.30),
+            rgba(168,85,247,.12)
+        );
+
+    border:1px solid rgba(168,85,247,.20);
+
+    font-size:17px;
+}
+
+.card-title h2{
+    font-size:14px;
+    font-weight:800;
+}
+
+.card-title p{
+    color:#8f8499;
+    font-size:9px;
+    margin-top:3px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-preview{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:17px;
+
+    border-radius:16px;
+
+    background:rgba(0,0,0,.18);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    margin-bottom:18px;
+}
+
+.status-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.status-icon{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+
+    font-size:19px;
+
+    background:rgba(34,197,94,.10);
+
+    border:1px solid rgba(34,197,94,.16);
+}
+
+.status-info strong{
+    display:block;
+    font-size:12px;
+}
+
+.status-info span{
+    display:block;
+
+    color:#968c9f;
+
+    font-size:9px;
+
+    margin-top:3px;
+}
+
+.status-badge{
+    padding:7px 11px;
+
+    border-radius:9px;
+
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:.5px;
+}
+
+.status-badge.online{
+    color:#86efac;
+    background:rgba(34,197,94,.10);
+    border:1px solid rgba(34,197,94,.16);
+}
+
+.status-badge.maintenance{
+    color:#fca5a5;
+    background:rgba(239,68,68,.10);
+    border:1px solid rgba(239,68,68,.16);
+}
+
+/* =========================
+   CONTROL ROW
+========================= */
+
+.control-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:16px;
+
+    margin-bottom:10px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid rgba(255,255,255,.055);
+
+    transition:.25s;
+}
+
+.control-row:hover{
+    border-color:rgba(168,85,247,.18);
+
+    background:rgba(124,58,237,.045);
+}
+
+.control-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.control-icon{
+    width:38px;
+    height:38px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:rgba(124,58,237,.10);
+
+    border:1px solid rgba(168,85,247,.13);
+
+    font-size:15px;
+}
+
+.control-text strong{
+    display:block;
+
+    font-size:11px;
+}
+
+.control-text span{
+    display:block;
+
+    margin-top:3px;
+
+    color:#8f8499;
+
+    font-size:8px;
+
+    line-height:1.4;
+}
+
+/* =========================
+   TOGGLE
+========================= */
+
+.switch{
+    position:relative;
+
+    width:50px;
+    height:27px;
+
+    flex-shrink:0;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+
+    cursor:pointer;
+
+    border-radius:30px;
+
+    background:#21182b;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    transition:.3s;
+}
+
+.slider:before{
+    content:"";
+
+    position:absolute;
+
+    width:19px;
+    height:19px;
+
+    left:3px;
+    top:3px;
+
+    border-radius:50%;
+
+    background:#918797;
+
+    transition:.3s;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.4);
+}
+
+.switch input:checked + .slider{
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7
+        );
+
+    border-color:rgba(192,132,252,.45);
+
+    box-shadow:
+        0 0 15px rgba(168,85,247,.22);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(23px);
+
+    background:white;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-label{
+    display:block;
+
+    color:#cfc5d7;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    margin-bottom:7px;
+}
+
+input,
+textarea{
+    width:100%;
+
+    outline:none;
+
+    border:none;
+
+    color:white;
+
+    background:rgba(0,0,0,.20);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:12px;
+
+    padding:12px 13px;
+
+    font-size:11px;
+
+    transition:.25s;
+}
+
+input:focus,
+textarea:focus{
+    border-color:rgba(168,85,247,.45);
+
+    background:rgba(124,58,237,.045);
+
+    box-shadow:
+        0 0 0 3px rgba(124,58,237,.07);
+}
+
+textarea{
+    min-height:90px;
+
+    resize:vertical;
+}
+
+::placeholder{
+    color:#665d6d;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-row{
+    display:flex;
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.btn{
+    border:none;
+    outline:none;
+
+    cursor:pointer;
+
+    min-height:43px;
+
+    padding:0 16px;
+
+    border-radius:12px;
+
+    font-size:10px;
+    font-weight:800;
+
+    color:white;
+
+    transition:.25s;
+}
+
+.btn-primary{
+    flex:1;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7
+        );
+
+    box-shadow:
+        0 10px 25px rgba(124,58,237,.20);
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(124,58,237,.30);
+}
+
+.btn-secondary{
+    background:rgba(255,255,255,.045);
+
+    border:1px solid rgba(255,255,255,.09);
+
+    color:#cfc5d7;
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,.08);
+
+    color:white;
+}
+
+.btn:active{
+    transform:scale(.97);
+}
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:20px;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.12),
+            rgba(168,85,247,.035)
+        );
+
+    border:1px solid rgba(168,85,247,.16);
+}
+
+.preview:before{
+    content:"";
+
+    position:absolute;
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    background:#7c3aed;
+
+    filter:blur(80px);
+
+    opacity:.15;
+
+    right:-50px;
+    top:-60px;
+}
+
+.preview-label{
+    color:#a78bfa;
+
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    margin-bottom:10px;
+}
+
+.preview h3{
+    position:relative;
+
+    font-size:14px;
+
+    margin-bottom:8px;
+}
+
+.preview p{
+    position:relative;
+
+    color:#a99faf;
+
+    font-size:9px;
+
+    line-height:1.7;
+}
+
+.version-box{
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-top:15px;
+
+    padding:11px 13px;
+
+    border-radius:11px;
+
+    background:rgba(0,0,0,.18);
+
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.version-box span{
+    color:#82788c;
+
+    font-size:8px;
+}
+
+.version-box strong{
+    font-size:10px;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info-box{
+    margin-top:15px;
+
+    padding:13px;
+
+    border-radius:13px;
+
+    background:rgba(59,130,246,.055);
+
+    border:1px solid rgba(59,130,246,.12);
+
+    color:#aeb9cf;
+
+    font-size:8px;
+
+    line-height:1.7;
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+.music-player{
+    position:fixed;
+
+    right:18px;
+    bottom:18px;
+
+    z-index:900;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:9px 11px;
+
+    border-radius:14px;
+
+    background:rgba(10,5,16,.65);
+
+    border:1px solid rgba(168,85,247,.17);
+
+    backdrop-filter:blur(14px);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.3);
+}
+
+.music-player button{
+    width:31px;
+    height:31px;
+
+    border:none;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7
+        );
+}
+
+.music-text{
+    font-size:8px;
+
+    color:#bfb5c8;
+
+    font-weight:700;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    z-index:2000;
+
+    transform:
+        translate(-50%,120px);
+
+    min-width:230px;
+    max-width:90%;
+
+    padding:12px 16px;
+
+    border-radius:13px;
+
+    background:
+        rgba(15,8,25,.88);
+
+    border:1px solid rgba(168,85,247,.25);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35);
+
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    font-size:10px;
+    font-weight:700;
+
+    opacity:0;
+
+    transition:.35s;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+.toast-icon{
+    width:25px;
+    height:25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:8px;
+
+    background:rgba(168,85,247,.12);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    text-align:center;
+
+    padding:10px 20px 35px;
+
+    color:#746b7c;
+
+    font-size:8px;
+
+    letter-spacing:.3px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    .nav-links{
+        position:absolute;
+
+        top:72px;
+        left:15px;
+        right:15px;
+
+        display:none;
+
+        flex-direction:column;
+        align-items:stretch;
+
+        padding:10px;
+
+        border-radius:17px;
+
+        background:
+            rgba(10,5,16,.92);
+
+        border:1px solid var(--border);
+
+        backdrop-filter:blur(20px);
+
+        box-shadow:
+            0 25px 60px rgba(0,0,0,.4);
+    }
+
+    .nav-links.show{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:13px;
+    }
+
+    .online-status{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:500px){
+
+    main{
+        padding:
+            35px 14px
+            70px;
+    }
+
+    .nav-inner{
+        padding:0 14px;
+    }
+
+    .brand-text{
+        font-size:13px;
+    }
+
+    .page-header{
+        margin-bottom:25px;
+    }
+
+    .page-header h1{
+        font-size:32px;
+    }
+
+    .card{
+        padding:17px;
+
+        border-radius:18px;
+    }
+
+    .button-row{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .status-preview{
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<video id="bgVideo" autoplay muted loop playsinline>
+    <source src="YANZ.mp4" type="video/mp4">
+</video>
+
+<div class="bg-overlay"></div>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+        <a href="utama.html" class="brand">
+
+            <div class="brand-logo">
+                YZ
+            </div>
+
+            <div>
+                <div class="brand-text">
+                    YANZ PROJECT
+                </div>
+
+                <div class="brand-sub">
+                    CONTROL CENTER
+                </div>
+            </div>
+
+        </a>
+
+
+        <div class="nav-links" id="navLinks">
+
+            <a href="utama.html">
+                HOME
+            </a>
+
+            <a href="key.html">
+                GET KEY
+            </a>
+
+            <a href="admin-key.html">
+                ADMIN KEY
+            </a>
+
+            <a href="admin-control.html" class="active">
+                ADMIN CONTROL
+            </a>
+
+            <a href="feedback.html">
+                FEEDBACK
+            </a>
+
+        </div>
+
+
+        <div class="online-status">
+
+            <span class="online-dot"></span>
+
+            SYSTEM ONLINE
+
+        </div>
+
+
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            onclick="toggleMenu()"
+        >
+            ☰
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<main>
+
+
+    <!-- HEADER -->
+
+    <section class="page-header">
+
+        <div class="mini">
+
+            <span></span>
+
+            YANZ ADMIN SYSTEM
+
+        </div>
+
+        <h1>
+            ADMIN CONTROL
+        </h1>
+
+        <p>
+            Kelola status, maintenance dan update
+            YANZ MOD langsung dari panel web.
+        </p>
+
+    </section>
+
+
+    <!-- GRID -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- LEFT -->
+
+        <div>
+
+
+            <!-- APP STATUS -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <div class="card-title-left">
+
+                        <div class="icon-box">
+                            ⚙️
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                APP STATUS
+                            </h2>
+
+                            <p>
+                                Status aplikasi YANZ MOD
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-preview">
+
+                    <div class="status-left">
+
+                        <div
+                            class="status-icon"
+                            id="statusIcon"
+                        >
+                            ✓
+                        </div>
+
+                        <div class="status-info">
+
+                            <strong id="statusTitle">
+                                APP ONLINE
+                            </strong>
+
+                            <span id="statusDescription">
+                                YANZ MOD dapat digunakan normal.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="status-badge online"
+                        id="statusBadge"
+                    >
+                        ONLINE
+                    </div>
+
+                </div>
+
+
+                <!-- MAINTENANCE -->
+
+                <div class="control-row">
+
+                    <div class="control-info">
+
+                        <div class="control-icon">
+                            🔧
+                        </div>
+
+                        <div class="control-text">
+
+                            <strong>
+                                Maintenance Mode
+                            </strong>
+
+                            <span>
+                                Blokir akses aplikasi sementara.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="maintenance"
+                            onchange="updatePreview()"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- UPDATE -->
+
+                <div class="control-row">
+
+                    <div class="control-info">
+
+                        <div class="control-icon">
+                            🔄
+                        </div>
+
+                        <div class="control-text">
+
+                            <strong>
+                                Update Available
+                            </strong>
+
+                            <span>
+                                Tampilkan pemberitahuan update.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="updateAvailable"
+                            onchange="updatePreview()"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- FORCE UPDATE -->
+
+                <div class="control-row">
+
+                    <div class="control-info">
+
+                        <div class="control-icon">
+                            ⚡
+                        </div>
+
+                        <div class="control-text">
+
+                            <strong>
+                                Force Update
+                            </strong>
+
+                            <span>
+                                User wajib melakukan update.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="forceUpdate"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAINTENANCE SETTINGS -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <div class="card-title-left">
+
+                        <div class="icon-box">
+                            🔧
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                MAINTENANCE SETTINGS
+                            </h2>
+
+                            <p>
+                                Pesan yang ditampilkan saat maintenance.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        MAINTENANCE MESSAGE
+                    </label>
+
+                    <textarea
+                        id="maintenanceMessage"
+                        placeholder="Contoh: YANZ MOD sedang dalam maintenance. Silakan coba lagi nanti."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- UPDATE SETTINGS -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <div class="card-title-left">
+
+                        <div class="icon-box">
+                            🚀
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                UPDATE SETTINGS
+                            </h2>
+
+                            <p>
+                                Atur informasi versi terbaru APK.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        CURRENT VERSION
+                    </label>
+
+                    <input
+                        type="text"
+                        id="currentVersion"
+                        placeholder="1.0.0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        LATEST VERSION
+                    </label>
+
+                    <input
+                        type="text"
+                        id="latestVersion"
+                        placeholder="1.1.0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        UPDATE MESSAGE
+                    </label>
+
+                    <textarea
+                        id="updateMessage"
+                        placeholder="Contoh: Versi terbaru YANZ MOD sudah tersedia."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        DOWNLOAD URL APK
+                    </label>
+
+                    <input
+                        type="url"
+                        id="downloadUrl"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="resetControl()"
+                    >
+                        RESET
+                    </button>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="saveControl()"
+                        id="saveBtn"
+                    >
+                        💾 SAVE CONTROL
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div>
+
+
+            <!-- LIVE PREVIEW -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <div class="card-title-left">
+
+                        <div class="icon-box">
+                            👁️
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                LIVE PREVIEW
+                            </h2>
+
+                            <p>
+                                Tampilan yang akan diterima APK.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview">
+
+                    <div class="preview-label">
+                        YANZ MOD SYSTEM
+                    </div>
+
+                    <h3 id="previewTitle">
+                        YANZ MOD ONLINE
+                    </h3>
+
+                    <p id="previewMessage">
+                        Semua sistem berjalan normal.
+                    </p>
+
+
+                    <div class="version-box">
+
+                        <span>
+                            VERSION
+                        </span>
+
+                        <strong id="previewVersion">
+                            1.0.0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DATABASE INFO -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <div class="card-title-left">
+
+                        <div class="icon-box">
+                            ☁️
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                FIREBASE STATUS
+                            </h2>
+
+                            <p>
+                                Remote configuration database.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-preview">
+
+                    <div class="status-left">
+
+                        <div
+                            class="status-icon"
+                            id="firebaseIcon"
+                        >
+                            ☁
+                        </div>
+
+                        <div class="status-info">
+
+                            <strong id="firebaseTitle">
+                                CHECKING...
+                            </strong>
+
+                            <span id="firebaseDescription">
+                                Menghubungkan ke Firebase.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="status-badge"
+                        id="firebaseBadge"
+                    >
+                        WAIT
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    Data control akan disimpan di:
+
+                    <br><br>
+
+                    <b>
+                        Firestore →
+                        appControl →
+                        main
+                    </b>
+
+                    <br><br>
+
+                    APK YANZ MOD nantinya mengambil
+                    konfigurasi ini saat aplikasi dibuka.
+
+                </div>
+
+            </div>
+
+
+            <!-- DATA STRUCTURE -->
+
+            <div class="card">
+
+                <div class="card-title">
+
+                    <div class="card-title-left">
+
+                        <div class="icon-box">
+                            🗂️
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                CONTROL DATA
+                            </h2>
+
+                            <p>
+                                Struktur remote config.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <b>maintenance</b>
+                    → true / false
+
+                    <br>
+
+                    <b>updateAvailable</b>
+                    → true / false
+
+                    <br>
+
+                    <b>forceUpdate</b>
+                    → true / false
+
+                    <br>
+
+                    <b>latestVersion</b>
+                    → versi terbaru
+
+                    <br>
+
+                    <b>downloadUrl</b>
+                    → link APK
+
+                    <br>
+
+                    <b>message</b>
+                    → pesan sistem
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- MUSIC -->
+
+<div class="music-player">
+
+    <button onclick="toggleMusic()" id="musicBtn">
+        ▶
+    </button>
+
+    <div class="music-text">
+        YANZ MUSIC
+    </div>
+
+</div>
+
+<audio id="music" loop>
+
+    <source
+        src="YANZ.mp3"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+
+    <div class="toast-icon">
+        ✓
+    </div>
+
+    <div id="toastText">
+        Berhasil
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 YANZ PROJECT · ADMIN CONTROL CENTER
+
+</footer>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCFxeYheaAtB2KNLN-J4CoNchaajnbfo",
+
+    authDomain:
+        "yanx-mod.firebaseapp.com",
+
+    projectId:
+        "yanx-mod",
+
+    storageBucket:
+        "yanx-mod.firebasestorage.app",
+
+    messagingSenderId:
+        "987152018451",
+
+    appId:
+        "1:987152018451:web:eed97744e8602b7c4b23e6"
+};
+
+
+/* =========================
+   INIT
+========================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(app);
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const maintenance =
+    document.getElementById("maintenance");
+
+const updateAvailable =
+    document.getElementById("updateAvailable");
+
+const forceUpdate =
+    document.getElementById("forceUpdate");
+
+const maintenanceMessage =
+    document.getElementById("maintenanceMessage");
+
+const currentVersion =
+    document.getElementById("currentVersion");
+
+const latestVersion =
+    document.getElementById("latestVersion");
+
+const updateMessage =
+    document.getElementById("updateMessage");
+
+const downloadUrl =
+    document.getElementById("downloadUrl");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+
+/* =========================
+   LOAD DATA
+========================= */
+
+async function loadControl(){
+
+    try{
+
+        const ref =
+            doc(
+                db,
+                "appControl",
+                "main"
+            );
+
+        const snap =
+            await getDoc(ref);
+
+
+        if(snap.exists()){
+
+            const data =
+                snap.data();
+
+
+            maintenance.checked =
+                data.maintenance === true;
+
+
+            updateAvailable.checked =
+                data.updateAvailable === true;
+
+
+            forceUpdate.checked =
+                data.forceUpdate === true;
+
+
+            maintenanceMessage.value =
+                data.maintenanceMessage ||
+                "YANZ MOD sedang dalam maintenance. Silakan coba lagi nanti.";
+
+
+            currentVersion.value =
+                data.currentVersion ||
+                "1.0.0";
+
+
+            latestVersion.value =
+                data.latestVersion ||
+                "1.0.0";
+
+
+            updateMessage.value =
+                data.updateMessage ||
+                "Versi terbaru YANZ MOD sudah tersedia.";
+
+
+            downloadUrl.value =
+                data.downloadUrl ||
+                "";
+
+        }
+
+        else{
+
+            setDefaultValues();
+
+        }
+
+
+        updatePreview();
+
+        setFirebaseStatus(
+            true,
+            "CONNECTED",
+            "Firebase berhasil terhubung."
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        setFirebaseStatus(
+            false,
+            "ERROR",
+            "Gagal membaca konfigurasi Firebase."
+        );
+
+        showToast(
+            "Gagal mengambil data Firebase"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   DEFAULT
+========================= */
+
+function setDefaultValues(){
+
+    maintenance.checked =
+        false;
+
+    updateAvailable.checked =
+        false;
+
+    forceUpdate.checked =
+        false;
+
+    maintenanceMessage.value =
+        "YANZ MOD sedang dalam maintenance. Silakan coba lagi nanti.";
+
+    currentVersion.value =
+        "1.0.0";
+
+    latestVersion.value =
+        "1.0.0";
+
+    updateMessage.value =
+        "Versi terbaru YANZ MOD sudah tersedia.";
+
+    downloadUrl.value =
+        "";
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+window.saveControl =
+async function(){
+
+    const oldText =
+        saveBtn.innerHTML;
+
+    saveBtn.disabled =
+        true;
+
+    saveBtn.innerHTML =
+        "⏳ SAVING...";
+
+
+    try{
+
+        const data = {
+
+            maintenance:
+                maintenance.checked,
+
+            maintenanceMessage:
+                maintenanceMessage.value.trim(),
+
+            updateAvailable:
+                updateAvailable.checked,
+
+            forceUpdate:
+                forceUpdate.checked,
+
+            currentVersion:
+                currentVersion.value.trim(),
+
+            latestVersion:
+                latestVersion.value.trim(),
+
+            updateMessage:
+                updateMessage.value.trim(),
+
+            downloadUrl:
+                downloadUrl.value.trim(),
+
+            updatedAt:
+                serverTimestamp()
+
+        };
+
+
+        await setDoc(
+
+            doc(
+                db,
+                "appControl",
+                "main"
+            ),
+
+            data
+
+        );
+
+
+        showToast(
+            "✓ Control berhasil disimpan"
+        );
+
+
+        updatePreview();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        showToast(
+            "✕ Gagal menyimpan control"
+        );
+
+    }
+
+
+    saveBtn.disabled =
+        false;
+
+    saveBtn.innerHTML =
+        oldText;
+
+};
+
+
+/* =========================
+   RESET
+========================= */
+
+window.resetControl =
+function(){
+
+    if(
+        !confirm(
+            "Reset semua pengaturan control?"
+        )
+    ){
+
+        return;
+
+    }
+
+    setDefaultValues();
+
+    updatePreview();
+
+    showToast(
+        "Pengaturan di-reset"
+    );
+
+};
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+window.updatePreview =
+function(){
+
+    const statusTitle =
+        document.getElementById(
+            "statusTitle"
+        );
+
+    const statusDescription =
+        document.getElementById(
+            "statusDescription"
+        );
+
+    const statusBadge =
+        document.getElementById(
+            "statusBadge"
+        );
+
+    const statusIcon =
+        document.getElementById(
+            "statusIcon"
+        );
+
+
+    const previewTitle =
+        document.getElementById(
+            "previewTitle"
+        );
+
+    const previewMessage =
+        document.getElementById(
+            "previewMessage"
+        );
+
+    const previewVersion =
+        document.getElementById(
+            "previewVersion"
+        );
+
+
+    /* MAINTENANCE */
+
+    if(maintenance.checked){
+
+        statusTitle.innerText =
+            "MAINTENANCE MODE";
+
+        statusDescription.innerText =
+            "Aplikasi akan diblokir sementara.";
+
+        statusBadge.innerText =
+            "MAINTENANCE";
+
+        statusBadge.className =
+            "status-badge maintenance";
+
+        statusIcon.innerText =
+            "🔧";
+
+        previewTitle.innerText =
+            "YANZ MOD MAINTENANCE";
+
+        previewMessage.innerText =
+            maintenanceMessage.value ||
+            "YANZ MOD sedang dalam maintenance.";
+
+    }
+
+    /* UPDATE */
+
+    else if(updateAvailable.checked){
+
+        statusTitle.innerText =
+            "UPDATE AVAILABLE";
+
+        statusDescription.innerText =
+            "Versi baru tersedia untuk user.";
+
+        statusBadge.innerText =
+            "UPDATE";
+
+        statusBadge.className =
+            "status-badge online";
+
+        statusIcon.innerText =
+            "↻";
+
+        previewTitle.innerText =
+            "UPDATE TERSEDIA";
+
+        previewMessage.innerText =
+            updateMessage.value ||
+            "Versi terbaru YANZ MOD tersedia.";
+
+    }
+
+    /* ONLINE */
+
+    else{
+
+        statusTitle.innerText =
+            "APP ONLINE";
+
+        statusDescription.innerText =
+            "YANZ MOD dapat digunakan normal.";
+
+        statusBadge.innerText =
+            "ONLINE";
+
+        statusBadge.className =
+            "status-badge online";
+
+        statusIcon.innerText =
+            "✓";
+
+        previewTitle.innerText =
+            "YANZ MOD ONLINE";
+
+        previewMessage.innerText =
+            "Semua sistem berjalan normal.";
+
+    }
+
+
+    previewVersion.innerText =
+        latestVersion.value ||
+        "1.0.0";
+
+};
+
+
+/* =========================
+   FIREBASE STATUS
+========================= */
+
+function setFirebaseStatus(
+    connected,
+    title,
+    description
+){
+
+    const badge =
+        document.getElementById(
+            "firebaseBadge"
+        );
+
+    const titleElement =
+        document.getElementById(
+            "firebaseTitle"
+        );
+
+    const descriptionElement =
+        document.getElementById(
+            "firebaseDescription"
+        );
+
+    const icon =
+        document.getElementById(
+            "firebaseIcon"
+        );
+
+
+    titleElement.innerText =
+        title;
+
+    descriptionElement.innerText =
+        description;
+
+    badge.innerText =
+        connected
+            ? "ONLINE"
+            : "ERROR";
+
+
+    badge.className =
+        connected
+            ? "status-badge online"
+            : "status-badge maintenance";
+
+
+    icon.innerText =
+        connected
+            ? "☁"
+            : "✕";
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+window.showToast =
+function(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    const text =
+        document.getElementById(
+            "toastText"
+        );
+
+    text.innerText =
+        message;
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function(){
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        2800
+    );
+
+};
+
+
+/* =========================
+   MENU
+========================= */
+
+window.toggleMenu =
+function(){
+
+    document
+        .getElementById("navLinks")
+        .classList
+        .toggle("show");
+
+};
+
+
+/* =========================
+   MUSIC
+========================= */
+
+const music =
+    document.getElementById(
+        "music"
+    );
+
+const musicBtn =
+    document.getElementById(
+        "musicBtn"
+    );
+
+
+window.toggleMusic =
+function(){
+
+    if(
+        music.paused
+    ){
+
+        music.play()
+        .then(()=>{
+
+            musicBtn.innerText =
+                "⏸";
+
+        })
+        .catch(()=>{
+
+            showToast(
+                "Browser memblokir autoplay"
+            );
+
+        });
+
+    }
+
+    else{
+
+        music.pause();
+
+        musicBtn.innerText =
+            "▶";
+
+    }
+
+};
+
+
+/* =========================
+   AUTO PREVIEW
+========================= */
+
+maintenanceMessage
+    .addEventListener(
+        "input",
+        updatePreview
+    );
+
+updateMessage
+    .addEventListener(
+        "input",
+        updatePreview
+    );
+
+latestVersion
+    .addEventListener(
+        "input",
+        updatePreview
+    );
+
+
+/* =========================
+   START
+========================= */
+
+loadControl();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2958 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>YANZ GET KEY</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+
+:root{
+    --purple:#7c3aed;
+    --purple2:#a855f7;
+    --purple3:#c084fc;
+    --muted:#c8bfd2;
+    --border:rgba(220,180,255,.18);
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    min-height:100vh;
+
+    background:#08050d;
+
+    color:white;
+
+    overflow-x:hidden;
+
+}
+
+
+/* =========================
+   VIDEO BACKGROUND
+========================= */
+
+#bgVideo{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    z-index:-50;
+
+    filter:
+        brightness(.68)
+        contrast(1.02)
+        saturate(.92);
+
+}
+
+
+.bg-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-40;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5,2,10,.40),
+            rgba(5,2,10,.75)
+        );
+
+}
+
+
+/* =========================
+   PURPLE GLOW
+========================= */
+
+.bg-purple{
+
+    position:fixed;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    opacity:.16;
+
+    z-index:-30;
+
+    pointer-events:none;
+
+}
+
+
+.bg-purple.one{
+
+    top:-180px;
+
+    left:-120px;
+
+    background:#7c3aed;
+
+    animation:
+        floatOne 14s ease-in-out infinite;
+
+}
+
+
+.bg-purple.two{
+
+    right:-180px;
+
+    bottom:-180px;
+
+    background:#c026d3;
+
+    animation:
+        floatTwo 16s ease-in-out infinite;
+
+}
+
+
+@keyframes floatOne{
+
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(60px,40px);
+    }
+
+}
+
+
+@keyframes floatTwo{
+
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(-50px,-30px);
+    }
+
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    width:100%;
+
+    background:
+        rgba(8,4,14,.30);
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    backdrop-filter:
+        blur(17px)
+        saturate(150%);
+
+    -webkit-backdrop-filter:
+        blur(17px)
+        saturate(150%);
+
+}
+
+
+.nav-inner{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    min-height:72px;
+
+    padding:0 5%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    color:white;
+
+    text-decoration:none;
+
+}
+
+
+.brand-logo{
+
+    width:42px;
+    height:42px;
+
+    border-radius:13px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.75),
+            rgba(168,85,247,.35)
+        );
+
+    border:
+        1px solid
+        rgba(220,180,255,.24);
+
+    box-shadow:
+        0 0 25px
+        rgba(124,58,237,.18);
+
+}
+
+
+.brand-text{
+
+    font-size:14px;
+
+    font-weight:800;
+
+    letter-spacing:.4px;
+
+}
+
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+
+.nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:4px;
+
+}
+
+
+.nav-link{
+
+    padding:10px 12px;
+
+    border-radius:10px;
+
+    color:#d8d0df;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+
+.nav-link:hover{
+
+    color:white;
+
+    background:
+        rgba(168,85,247,.12);
+
+}
+
+
+.nav-link.active{
+
+    color:white;
+
+    background:
+        rgba(124,58,237,.20);
+
+    border:
+        1px solid
+        rgba(192,132,252,.15);
+
+}
+
+
+.online{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:8px 11px;
+
+    border-radius:20px;
+
+    background:
+        rgba(20,15,27,.25);
+
+    border:
+        1px solid
+        rgba(220,180,255,.12);
+
+    color:#ddd4e5;
+
+    font-size:10px;
+
+    font-weight:700;
+
+}
+
+
+.online-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 8px
+        #22c55e;
+
+    animation:
+        onlinePulse 2s infinite;
+
+}
+
+
+@keyframes onlinePulse{
+
+    0%,100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.45;
+    }
+
+}
+
+
+.menu-btn{
+
+    display:none;
+
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    border:
+        1px solid
+        var(--border);
+
+    background:
+        rgba(25,12,36,.35);
+
+    color:white;
+
+    font-size:19px;
+
+    cursor:pointer;
+
+}
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobile-menu{
+
+    position:fixed;
+
+    top:82px;
+
+    right:5%;
+
+    width:220px;
+
+    padding:10px;
+
+    border-radius:17px;
+
+    background:
+        rgba(13,7,21,.72);
+
+    border:
+        1px solid
+        var(--border);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.35);
+
+    opacity:0;
+
+    transform:
+        translateY(-10px);
+
+    pointer-events:none;
+
+    transition:.25s;
+
+    z-index:999;
+
+}
+
+
+.mobile-menu.show{
+
+    opacity:1;
+
+    transform:
+        translateY(0);
+
+    pointer-events:auto;
+
+}
+
+
+.mobile-menu a{
+
+    display:block;
+
+    padding:13px 14px;
+
+    border-radius:11px;
+
+    color:#ddd5e4;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+
+.mobile-menu a:hover{
+
+    background:
+        rgba(124,58,237,.15);
+
+    color:white;
+
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+
+    width:100%;
+
+    max-width:1050px;
+
+    margin:auto;
+
+    padding:
+        45px 5%
+        70px;
+
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header{
+
+    text-align:center;
+
+    margin-bottom:28px;
+
+}
+
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 13px;
+
+    border-radius:20px;
+
+    background:
+        rgba(124,58,237,.13);
+
+    border:
+        1px solid
+        rgba(192,132,252,.18);
+
+    color:#ddd0e9;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:.6px;
+
+}
+
+
+.badge span{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 8px
+        #22c55e;
+
+}
+
+
+.page-header h1{
+
+    margin-top:15px;
+
+    font-size:
+        clamp(32px,7vw,50px);
+
+    font-weight:800;
+
+    letter-spacing:-1.5px;
+
+}
+
+
+.page-header h1 span{
+
+    color:
+        var(--purple3);
+
+    text-shadow:
+        0 0 30px
+        rgba(168,85,247,.35);
+
+}
+
+
+.page-header p{
+
+    max-width:650px;
+
+    margin:
+        12px auto 0;
+
+    color:
+        var(--muted);
+
+    font-size:13px;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================
+   GLASS
+========================= */
+
+.glass{
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(35,18,52,.31),
+            rgba(15,8,25,.28)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:22px;
+
+    backdrop-filter:
+        blur(18px)
+        saturate(140%);
+
+    -webkit-backdrop-filter:
+        blur(18px)
+        saturate(140%);
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.20);
+
+}
+
+
+/* =========================
+   MUSIC
+========================= */
+
+.music-card{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:18px;
+
+    padding:15px 17px;
+
+    margin-bottom:20px;
+
+}
+
+
+.music-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+.music-icon{
+
+    width:42px;
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.35),
+            rgba(192,132,252,.15)
+        );
+
+    border:
+        1px solid
+        rgba(192,132,252,.18);
+
+    font-size:18px;
+
+}
+
+
+.music-info strong{
+
+    display:block;
+
+    font-size:12px;
+
+}
+
+
+.music-info span{
+
+    display:block;
+
+    margin-top:3px;
+
+    color:#a99eb0;
+
+    font-size:10px;
+
+}
+
+
+.music-btn{
+
+    border:
+        1px solid
+        rgba(192,132,252,.2);
+
+    background:
+        rgba(124,58,237,.15);
+
+    color:white;
+
+    border-radius:12px;
+
+    padding:10px 15px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+
+.music-btn:hover{
+
+    background:
+        rgba(124,58,237,.30);
+
+    box-shadow:
+        0 0 20px
+        rgba(124,58,237,.18);
+
+}
+
+
+/* =========================
+   GENERATOR CARD
+========================= */
+
+.generator{
+
+    padding:24px;
+
+}
+
+
+.info-box{
+
+    padding:20px;
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        rgba(220,180,255,.10);
+
+    margin-bottom:16px;
+
+}
+
+
+.info-title{
+
+    font-size:16px;
+
+    font-weight:800;
+
+    margin-bottom:9px;
+
+}
+
+
+.info-text{
+
+    color:#a9a0ad;
+
+    font-size:12px;
+
+    line-height:1.75;
+
+}
+
+
+.info-text strong{
+
+    color:
+        var(--purple3);
+
+}
+
+
+/* =========================
+   TASK
+========================= */
+
+.task{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:17px;
+
+    margin-top:10px;
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.022);
+
+    border:
+        1px solid
+        rgba(220,180,255,.09);
+
+    transition:.25s;
+
+}
+
+
+.task:hover{
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(192,132,252,.25);
+
+    background:
+        rgba(124,58,237,.05);
+
+}
+
+
+.task-icon{
+
+    width:50px;
+    height:50px;
+
+    min-width:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    font-size:21px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.25),
+            rgba(168,85,247,.08)
+        );
+
+    border:
+        1px solid
+        rgba(192,132,252,.14);
+
+}
+
+
+.task-content{
+
+    flex:1;
+
+}
+
+
+.task-title{
+
+    font-size:13px;
+
+    font-weight:800;
+
+}
+
+
+.task-desc{
+
+    margin-top:4px;
+
+    color:#817889;
+
+    font-size:10px;
+
+}
+
+
+.task-btn{
+
+    padding:10px 15px;
+
+    border-radius:11px;
+
+    border:
+        1px solid
+        rgba(34,197,94,.18);
+
+    background:
+        rgba(34,197,94,.07);
+
+    color:#86efac;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+.task-btn:hover{
+
+    background:
+        rgba(34,197,94,.13);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.task-btn.done{
+
+    border-color:
+        rgba(34,197,94,.25);
+
+    color:#86efac;
+
+    background:
+        rgba(34,197,94,.12);
+
+}
+
+
+/* =========================
+   GET BUTTON
+========================= */
+
+.get-key{
+
+    width:100%;
+
+    height:56px;
+
+    margin-top:17px;
+
+    border:0;
+
+    border-radius:15px;
+
+    color:#817787;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.16),
+            rgba(168,85,247,.12)
+        );
+
+    border:
+        1px solid
+        rgba(168,85,247,.13);
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:not-allowed;
+
+    transition:.25s;
+
+}
+
+
+.get-key.active{
+
+    color:white;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #a855f7
+        );
+
+    border-color:
+        rgba(216,180,254,.25);
+
+    box-shadow:
+        0 10px 35px
+        rgba(124,58,237,.25);
+
+}
+
+
+.get-key.active:hover{
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 15px 45px
+        rgba(124,58,237,.35);
+
+}
+
+
+.get-key:disabled{
+
+    opacity:1;
+
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.result{
+
+    display:none;
+
+    margin-top:18px;
+
+    animation:
+        resultIn .5s ease;
+
+}
+
+
+@keyframes resultIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+.key-box{
+
+    padding:20px;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.12),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+        1px solid
+        rgba(192,132,252,.20);
+
+    text-align:center;
+
+}
+
+
+.label{
+
+    font-size:9px;
+
+    letter-spacing:3px;
+
+    color:#817889;
+
+    margin-bottom:12px;
+
+}
+
+
+.key{
+
+    padding:16px 10px;
+
+    border-radius:13px;
+
+    background:
+        rgba(5,3,9,.65);
+
+    border:
+        1px solid
+        rgba(192,132,252,.18);
+
+    color:
+        var(--purple3);
+
+    font-size:18px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    word-break:break-all;
+
+    text-shadow:
+        0 0 18px
+        rgba(192,132,252,.25);
+
+}
+
+
+.copy{
+
+    margin-top:12px;
+
+    padding:10px 18px;
+
+    border-radius:11px;
+
+    border:
+        1px solid
+        rgba(192,132,252,.20);
+
+    background:
+        rgba(124,58,237,.10);
+
+    color:
+        var(--purple3);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+.copy:hover{
+
+    background:
+        rgba(124,58,237,.20);
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+.timer{
+
+    margin-top:10px;
+
+    padding:17px;
+
+    text-align:center;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+}
+
+
+.timer-label{
+
+    color:#817889;
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
+}
+
+
+.timer-value{
+
+    margin-top:7px;
+
+    color:
+        var(--purple3);
+
+    font-size:25px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+
+    min-height:20px;
+
+    margin-top:15px;
+
+    text-align:center;
+
+    color:#817889;
+
+    font-size:10px;
+
+    line-height:1.5;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    max-width:1050px;
+
+    margin:auto;
+
+    padding:
+        0 5%
+        35px;
+
+    text-align:center;
+
+    color:#817889;
+
+    font-size:10px;
+
+}
+
+
+footer span{
+
+    color:#b88bea;
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:
+        translate(-50%,30px);
+
+    min-width:220px;
+
+    max-width:90%;
+
+    padding:12px 16px;
+
+    border-radius:13px;
+
+    background:
+        rgba(13,7,20,.85);
+
+    border:
+        1px solid
+        rgba(192,132,252,.20);
+
+    backdrop-filter:
+        blur(18px);
+
+    color:white;
+
+    text-align:center;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:5000;
+
+}
+
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .online{
+        display:none;
+    }
+
+    main{
+        padding-top:30px;
+    }
+
+    .generator{
+        padding:15px;
+    }
+
+    .task{
+        padding:13px;
+        gap:11px;
+    }
+
+    .task-icon{
+        width:45px;
+        height:45px;
+        min-width:45px;
+    }
+
+    .task-title{
+        font-size:12px;
+    }
+
+    .task-desc{
+        font-size:9px;
+    }
+
+    .task-btn{
+        padding:9px 11px;
+    }
+
+    .music-card{
+        padding:12px;
+    }
+
+}
+
+
+@media(max-width:420px){
+
+    .brand-text{
+        font-size:12px;
+    }
+
+    .brand-logo{
+        width:39px;
+        height:39px;
+    }
+
+    .page-header h1{
+        font-size:34px;
+    }
+
+    .task{
+        flex-wrap:wrap;
+    }
+
+    .task-btn{
+        margin-left:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     BACKGROUND
+========================= -->
+
+<video
+    id="bgVideo"
+    autoplay
+    muted
+    loop
+    playsinline>
+
+    <source
+        src="YANZ.mp4"
+        type="video/mp4">
+
+</video>
+
+
+<div class="bg-overlay"></div>
+
+<div class="bg-purple one"></div>
+
+<div class="bg-purple two"></div>
+
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+
+        <a
+            href="utama.html"
+            class="brand">
+
+            <div class="brand-logo">
+                YZ
+            </div>
+
+            <div class="brand-text">
+                YANZ PROJECT
+            </div>
+
+        </a>
+
+
+        <div class="nav-right">
+
+
+            <div class="nav-links">
+
+                <a
+                    href="utama.html"
+                    class="nav-link">
+
+                    HOME
+
+                </a>
+
+
+                <a
+                    href="key.html"
+                    class="nav-link active">
+
+                    GET KEY
+
+                </a>
+
+
+                <a
+                    href="admin-key.html"
+                    class="nav-link">
+
+                    ADMIN KEY
+
+                </a>
+
+
+                <a
+                    href="admin-control.html"
+                    class="nav-link">
+
+                    ADMIN CONTROL
+
+                </a>
+
+
+                <a
+                    href="feedback.html"
+                    class="nav-link">
+
+                    FEEDBACK
+
+                </a>
+
+            </div>
+
+
+            <div class="online">
+
+                <span class="online-dot"></span>
+
+                ONLINE
+
+            </div>
+
+
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                onclick="toggleMobileMenu()">
+
+                ☰
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     MOBILE MENU
+========================= -->
+
+<div
+    class="mobile-menu"
+    id="mobileMenu">
+
+
+    <a href="utama.html">
+        🏠 HOME
+    </a>
+
+
+    <a href="key.html">
+        🔑 GET KEY
+    </a>
+
+
+    <a href="admin-key.html">
+        ⚙️ ADMIN KEY
+    </a>
+
+
+    <a href="admin-control.html">
+        🛠️ ADMIN CONTROL
+    </a>
+
+
+    <a href="feedback.html">
+        💬 FEEDBACK
+    </a>
+
+
+</div>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+
+    <section class="page-header">
+
+
+        <div class="badge">
+
+            <span></span>
+
+            YANZ ACCESS SYSTEM
+
+        </div>
+
+
+        <h1>
+
+            Get <span>Key.</span>
+
+        </h1>
+
+
+        <p>
+
+            Selesaikan dua tugas di bawah
+            untuk mendapatkan access key
+            YANZ MOD selama 2 jam.
+
+        </p>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         MUSIC
+    ========================== -->
+
+    <div class="glass music-card">
+
+
+        <div class="music-left">
+
+
+            <div class="music-icon">
+                🎵
+            </div>
+
+
+            <div class="music-info">
+
+                <strong>
+                    YANZ PROJECT
+                </strong>
+
+
+                <span id="musicStatus">
+                    YANZ.mp3
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="music-btn"
+            id="musicBtn"
+            onclick="toggleMusic()">
+
+            ▶ PLAY
+
+        </button>
+
+
+    </div>
+
+
+    <audio
+        id="music"
+        loop>
+
+        <source
+            src="YANZ.mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+
+
+    <!-- =========================
+         GENERATOR
+    ========================== -->
+
+    <div class="glass generator">
+
+
+        <div class="info-box">
+
+
+            <div class="info-title">
+
+                🔐 Get YANZ MOD Access
+
+            </div>
+
+
+            <div class="info-text">
+
+                Ikuti kedua akun/saluran di bawah
+                untuk mendapatkan access key.
+
+                Key berlaku selama
+
+                <strong>
+                    2 JAM
+                </strong>.
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- TIKTOK -->
+
+        <div class="task">
+
+
+            <div class="task-icon">
+                ♪
+            </div>
+
+
+            <div class="task-content">
+
+
+                <div class="task-title">
+
+                    TikTok
+
+                </div>
+
+
+                <div class="task-desc">
+
+                    Follow @frimmawan
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="task-btn"
+                id="tiktokBtn"
+                onclick="openTikTok()">
+
+                FOLLOW
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- WHATSAPP -->
+
+        <div class="task">
+
+
+            <div class="task-icon">
+                ◉
+            </div>
+
+
+            <div class="task-content">
+
+
+                <div class="task-title">
+
+                    WhatsApp Channel
+
+                </div>
+
+
+                <div class="task-desc">
+
+                    Follow saluran YANZ
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="task-btn"
+                id="waBtn"
+                onclick="openWhatsApp()">
+
+                FOLLOW
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- GET KEY -->
+
+        <button
+            class="get-key"
+            id="getKeyBtn"
+            disabled>
+
+            🔒 FOLLOW DULU
+
+        </button>
+
+
+
+        <!-- RESULT -->
+
+        <div
+            class="result"
+            id="result">
+
+
+            <div class="key-box">
+
+
+                <div class="label">
+
+                    YOUR ACCESS KEY
+
+                </div>
+
+
+                <div
+                    class="key"
+                    id="keyText">
+
+                    -
+
+                </div>
+
+
+                <button
+                    class="copy"
+                    id="copyBtn">
+
+                    COPY KEY
+
+                </button>
+
+
+            </div>
+
+
+
+            <div class="timer">
+
+
+                <div class="timer-label">
+
+                    KEY EXPIRES
+
+                </div>
+
+
+                <div
+                    class="timer-value"
+                    id="timer">
+
+                    02:00:00
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div
+            class="message"
+            id="message">
+
+            Follow kedua akun untuk mendapatkan key
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<footer>
+
+    YANZ PROJECT © 2026 —
+    <span>SECURE ACCESS SYSTEM</span>
+
+</footer>
+
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+
+<!-- =========================
+     FIREBASE
+========================= -->
+
+<script type="module">
+
+
+import {
+
+    initializeApp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+
+import {
+
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+
+}
+from
+"https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCFxeYheaAtB2KNLN-J4CoNchaajnbfo",
+
+    authDomain:
+        "yanx-mod.firebaseapp.com",
+
+    projectId:
+        "yanx-mod",
+
+    storageBucket:
+        "yanx-mod.firebasestorage.app",
+
+    messagingSenderId:
+        "987152018451",
+
+    appId:
+        "1:987152018451:web:eed97744e8602b7c4b23e6"
+
+};
+
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const db =
+    getFirestore(app);
+
+
+const keysCollection =
+    collection(
+        db,
+        "licenseKeys"
+    );
+
+
+
+/* =========================
+   STATE
+========================= */
+
+let tiktokDone =
+    false;
+
+let whatsappDone =
+    false;
+
+let timerInterval =
+    null;
+
+
+
+/* =========================
+   TIKTOK
+========================= */
+
+window.openTikTok =
+function(){
+
+
+    window.open(
+        "https://www.tiktok.com/@frimmawan",
+        "_blank"
+    );
+
+
+    const btn =
+        document.getElementById(
+            "tiktokBtn"
+        );
+
+
+    btn.innerHTML =
+        "OPENED...";
+
+
+    btn.disabled =
+        true;
+
+
+    setTimeout(
+        function(){
+
+            tiktokDone =
+                true;
+
+
+            btn.innerHTML =
+                "✓ DONE";
+
+
+            btn.classList.add(
+                "done"
+            );
+
+
+            checkTasks();
+
+        },
+        1200
+    );
+
+};
+
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+window.openWhatsApp =
+function(){
+
+
+    window.open(
+        "https://whatsapp.com/channel/0029Vb8tyia1iUxR1UuaYp11",
+        "_blank"
+    );
+
+
+    const btn =
+        document.getElementById(
+            "waBtn"
+        );
+
+
+    btn.innerHTML =
+        "OPENED...";
+
+
+    btn.disabled =
+        true;
+
+
+    setTimeout(
+        function(){
+
+            whatsappDone =
+                true;
+
+
+            btn.innerHTML =
+                "✓ DONE";
+
+
+            btn.classList.add(
+                "done"
+            );
+
+
+            checkTasks();
+
+        },
+        1200
+    );
+
+};
+
+
+
+/* =========================
+   CHECK TASKS
+========================= */
+
+function checkTasks(){
+
+
+    const btn =
+        document.getElementById(
+            "getKeyBtn"
+        );
+
+
+    if(
+        tiktokDone &&
+        whatsappDone
+    ){
+
+
+        btn.disabled =
+            false;
+
+
+        btn.classList.add(
+            "active"
+        );
+
+
+        btn.innerHTML =
+            "🔑 GET ACCESS KEY";
+
+
+        document
+        .getElementById(
+            "message"
+        )
+        .innerHTML =
+            "✓ Semua tugas selesai. Generate key sekarang.";
+
+    }
+
+}
+
+
+
+/* =========================
+   RANDOM KEY
+========================= */
+
+function randomPart(
+    length
+){
+
+
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+
+    let result =
+        "";
+
+
+    for(
+        let i=0;
+        i<length;
+        i++
+    ){
+
+        result +=
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
+
+    }
+
+
+    return result;
+
+}
+
+
+
+function generateKey(){
+
+
+    return "YZ-" +
+
+        randomPart(4) +
+
+        "-" +
+
+        randomPart(4) +
+
+        "-" +
+
+        randomPart(4);
+
+}
+
+
+
+/* =========================
+   SAVE FIREBASE
+========================= */
+
+async function saveKeyToFirebase(
+    key
+){
+
+
+    const now =
+        new Date();
+
+
+    const expire =
+        new Date(
+            now.getTime() +
+            (
+                2 *
+                60 *
+                60 *
+                1000
+            )
+        );
+
+
+    await addDoc(
+        keysCollection,
+        {
+
+            key:
+                key,
+
+            active:
+                true,
+
+            duration:
+                2,
+
+            maxDevices:
+                1,
+
+            usedDevices:
+                0,
+
+            createdAt:
+                serverTimestamp(),
+
+            expireAt:
+                expire.toISOString()
+
+        }
+    );
+
+
+    return expire;
+
+}
+
+
+
+/* =========================
+   GET KEY
+========================= */
+
+document
+.getElementById(
+    "getKeyBtn"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+
+        if(
+            !tiktokDone ||
+            !whatsappDone
+        ){
+
+            return;
+
+        }
+
+
+        const btn =
+            this;
+
+
+        btn.disabled =
+            true;
+
+
+        btn.classList.remove(
+            "active"
+        );
+
+
+        btn.innerHTML =
+            "GENERATING...";
+
+
+        document
+        .getElementById(
+            "message"
+        )
+        .innerHTML =
+            "Menyimpan access key ke Firebase...";
+
+
+        try{
+
+
+            const key =
+                generateKey();
+
+
+            const expires =
+                await saveKeyToFirebase(
+                    key
+                );
+
+
+            document
+            .getElementById(
+                "keyText"
+            )
+            .innerText =
+                key;
+
+
+            document
+            .getElementById(
+                "result"
+            )
+            .style.display =
+                "block";
+
+
+            btn.innerHTML =
+                "✓ KEY GENERATED";
+
+
+            document
+            .getElementById(
+                "message"
+            )
+            .innerHTML =
+                "✓ Key berhasil dibuat dan disimpan ke Firebase.";
+
+
+            const seconds =
+                Math.max(
+                    0,
+                    Math.floor(
+                        (
+                            expires.getTime()
+                            -
+                            Date.now()
+                        ) / 1000
+                    )
+                );
+
+
+            startTimer(
+                seconds
+            );
+
+
+        }
+        catch(error){
+
+
+            console.error(
+                error
+            );
+
+
+            btn.disabled =
+                false;
+
+
+            btn.classList.add(
+                "active"
+            );
+
+
+            btn.innerHTML =
+                "🔑 GET ACCESS KEY";
+
+
+            document
+            .getElementById(
+                "message"
+            )
+            .innerHTML =
+                "❌ Gagal menyimpan key: " +
+                error.message;
+
+        }
+
+    }
+);
+
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(
+    seconds
+){
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    let remaining =
+        seconds;
+
+
+    function updateTimer(){
+
+
+        const hours =
+            Math.floor(
+                remaining / 3600
+            );
+
+
+        const minutes =
+            Math.floor(
+                (
+                    remaining % 3600
+                ) / 60
+            );
+
+
+        const secs =
+            remaining % 60;
+
+
+        document
+        .getElementById(
+            "timer"
+        )
+        .innerText =
+
+            String(hours)
+            .padStart(2,"0")
+
+            + ":"
+
+            +
+
+            String(minutes)
+            .padStart(2,"0")
+
+            + ":"
+
+            +
+
+            String(secs)
+            .padStart(2,"0");
+
+
+        if(
+            remaining <= 0
+        ){
+
+
+            clearInterval(
+                timerInterval
+            );
+
+
+            document
+            .getElementById(
+                "keyText"
+            )
+            .innerText =
+                "KEY EXPIRED";
+
+
+            document
+            .getElementById(
+                "message"
+            )
+            .innerHTML =
+                "❌ Access key sudah kedaluwarsa.";
+
+
+            return;
+
+        }
+
+
+        remaining--;
+
+    }
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+
+}
+
+
+
+/* =========================
+   COPY
+========================= */
+
+document
+.getElementById(
+    "copyBtn"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+
+        const key =
+            document
+            .getElementById(
+                "keyText"
+            )
+            .innerText;
+
+
+        if(
+            !key ||
+            key === "-" ||
+            key === "KEY EXPIRED"
+        ){
+
+            return;
+
+        }
+
+
+        try{
+
+
+            await navigator
+                .clipboard
+                .writeText(
+                    key
+                );
+
+
+            this.innerHTML =
+                "✓ COPIED";
+
+
+            showToast(
+                "✓ Key berhasil disalin"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    this.innerHTML =
+                        "COPY KEY";
+
+                },
+                1500
+            );
+
+
+        }
+        catch(error){
+
+
+            const textarea =
+                document.createElement(
+                    "textarea"
+                );
+
+
+            textarea.value =
+                key;
+
+
+            textarea.style.position =
+                "fixed";
+
+
+            textarea.style.opacity =
+                "0";
+
+
+            document.body.appendChild(
+                textarea
+            );
+
+
+            textarea.select();
+
+
+            document.execCommand(
+                "copy"
+            );
+
+
+            textarea.remove();
+
+
+            this.innerHTML =
+                "✓ COPIED";
+
+
+            showToast(
+                "✓ Key berhasil disalin"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    this.innerHTML =
+                        "COPY KEY";
+
+                },
+                1500
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =========================
+   TOAST
+========================= */
+
+window.showToast =
+function(message){
+
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+};
+
+</script>
+
+
+
+<!-- =========================
+     MUSIC + MOBILE
+========================= -->
+
+<script>
+
+
+const music =
+    document.getElementById(
+        "music"
+    );
+
+
+const musicBtn =
+    document.getElementById(
+        "musicBtn"
+    );
+
+
+const musicStatus =
+    document.getElementById(
+        "musicStatus"
+    );
+
+
+
+window.toggleMusic =
+async function(){
+
+
+    if(
+        music.paused
+    ){
+
+
+        try{
+
+
+            await music.play();
+
+
+            musicBtn.textContent =
+                "❚❚ PAUSE";
+
+
+            musicStatus.textContent =
+                "Playing • YANZ.mp3";
+
+
+        }
+        catch(error){
+
+
+            showToast(
+                "Tekan PLAY lagi untuk memulai musik"
+            );
+
+        }
+
+
+    }
+    else{
+
+
+        music.pause();
+
+
+        musicBtn.textContent =
+            "▶ PLAY";
+
+
+        musicStatus.textContent =
+            "YANZ.mp3";
+
+    }
+
+};
+
+
+
+music.addEventListener(
+    "play",
+    function(){
+
+        musicBtn.textContent =
+            "❚❚ PAUSE";
+
+        musicStatus.textContent =
+            "Playing • YANZ.mp3";
+
+    }
+);
+
+
+music.addEventListener(
+    "pause",
+    function(){
+
+        musicBtn.textContent =
+            "▶ PLAY";
+
+        musicStatus.textContent =
+            "YANZ.mp3";
+
+    }
+);
+
+
+
+/* VIDEO */
+
+document
+.getElementById(
+    "bgVideo"
+)
+.play()
+.catch(
+    () => {}
+);
+
+
+
+/* MOBILE MENU */
+
+window.toggleMobileMenu =
+function(){
+
+    document
+    .getElementById(
+        "mobileMenu"
+    )
+    .classList.toggle(
+        "show"
+    );
+
+};
+
+
+document.addEventListener(
+    "click",
+    function(event){
+
+
+        const menu =
+            document.getElementById(
+                "mobileMenu"
+            );
+
+
+        const button =
+            document.getElementById(
+                "menuBtn"
+            );
+
+
+        if(
+            !menu.contains(
+                event.target
+            )
+            &&
+            !button.contains(
+                event.target
+            )
+        ){
+
+            menu.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
